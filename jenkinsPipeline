@@ -1,0 +1,20 @@
+pipeline {
+    agent any
+    stages(){
+        stage('clear directory '){
+            steps{
+           sh 'cd /var/lib/jenkins/workspace/urlsCheck && rm -rf lbhub/'
+            }
+        }
+        stage('clone') {
+            steps{
+                sh 'git clone https://github.com/joshua-lb/lbhub.git'
+            }
+            }
+        stage('Docker build & run') {
+            steps{
+                sh 'cd /var/lib/jenkins/workspace/urlsCheck/lbhub && docker build -t urlscheck . && docker run urlscheck'
+            }
+            }
+    }
+}
